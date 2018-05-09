@@ -1,0 +1,4 @@
+XamarainTut.MainActivity, XamarainTut;md59540e4ffcbefe6975d86094107d43a60.MainActivity
+XamarainTut.MainActivity, XamarainTut, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59540e4ffcbefe6975d86094107d43a60.MainActivity
+XamarainTut.MainActivity;md59540e4ffcbefe6975d86094107d43a60.MainActivity
+xamaraintut.MainActivity;md59540e4ffcbefe6975d86094107d43a60.MainActivity
