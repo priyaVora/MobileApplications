@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         radioGroup = findViewById(R.id.radioGroupID);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.noID: {
                         Log.d("RD","NOPE!!");
                     }
-                    break;  
+                    break;
                 }
             }
         });
