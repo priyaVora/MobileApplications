@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //set things up - setup title
                 alertDialog.setTitle(R.string.title);
+                alertDialog.setIcon(android.R.drawable.star_big_on);
 
                 //set message
                 alertDialog.setMessage(R.string.message);
