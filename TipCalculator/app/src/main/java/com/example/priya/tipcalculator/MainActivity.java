@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textSeekBarView = findViewById(R.id.textSeekBarView);
         totalBillView = findViewById(R.id.totalBillView);
 
+        Toast.makeText(MainActivity.this, "Calculate", Toast.LENGTH_LONG);
         calculateButton.setOnClickListener(this);
 
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
