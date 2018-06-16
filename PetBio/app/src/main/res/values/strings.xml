@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PetBio</string>
+    <string name="show_pet_bio">Show Pet Bio</string>
+    <string name="content_desc_cat">Cats are great!</string>
+    <string name="content_desc_dog">Dogs are great!</string>
+    <string name="cat">Cat</string>
+    <string name="dog">Dog</string>
+    <string name="pet_desc">\"\"</string>
+    <string name="go_back">Back</string>
+</resources>
