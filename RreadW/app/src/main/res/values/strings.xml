@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RreadW</string>
+    <string name="todo_list">Enter your Todo List</string>
+    <string name="save_button">Save</string>
+</resources>
