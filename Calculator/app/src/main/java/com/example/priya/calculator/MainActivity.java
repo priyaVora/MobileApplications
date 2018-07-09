@@ -1,5 +1,6 @@
 package com.example.priya.calculator;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button zero;
 
     private String userCalculationInput = "";
+    private Button previousSelectedButton = null;
 
 
     @Override
@@ -45,13 +47,28 @@ public class MainActivity extends AppCompatActivity {
         setActionListener();
 
     }
+    public void setHighlightOnButton() {
+        if (previousSelectedButton != null) {
+            previousSelectedButton.setBackgroundResource(R.drawable.button_highlight);
+            previousSelectedButton.setTextColor(Color.rgb(10, 92, 99));
+        }
+    }
 
+    public void removeHighlight() {
+        if(previousSelectedButton != null) {
+            previousSelectedButton.setBackgroundResource(R.drawable.button_shape);
+            previousSelectedButton.setTextColor(Color.WHITE);
+        }
+    }
     public void setActionListener() {
         openingParantheses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 userCalculationInput+= "(";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = openingParantheses;
+                setHighlightOnButton();
             }
         });
 
@@ -60,14 +77,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= ")";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = closingParentheses;
+                setHighlightOnButton();
             }
         });
 
+        backspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userCalculationInput = userCalculationInput.substring(0, userCalculationInput.length() - 1);
+                entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = backspace;
+                setHighlightOnButton();
+            }
+        });
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 userCalculationInput= "";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = clear;
+                setHighlightOnButton();
             }
         });
 
@@ -76,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "/";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = divide;
+                setHighlightOnButton();
             }
         });
 
@@ -84,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "*";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = multiply;
+                setHighlightOnButton();
             }
         });
 
@@ -92,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput = "-";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = subtract;
+                setHighlightOnButton();
             }
         });
         add.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "+";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = add;
+                setHighlightOnButton();
             }
         });
 
@@ -107,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= ".";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = dot;
+                setHighlightOnButton();
             }
         });
 
@@ -118,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         userCalculationInput+= "0";
                         entryField.setText(userCalculationInput);
+                        removeHighlight();
+                        previousSelectedButton = zero;
+                        setHighlightOnButton();
                     }
                 });
             }
@@ -128,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "1";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = one;
+                setHighlightOnButton();
             }
         });
 
@@ -136,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "2";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = two;
+                setHighlightOnButton();
             }
         });
 
@@ -144,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "3";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = three;
+                setHighlightOnButton();
             }
         });
 
@@ -152,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "4";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = four;
+                setHighlightOnButton();
             }
         });
 
@@ -160,6 +223,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "5";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = five;
+                setHighlightOnButton();
             }
         });
 
@@ -168,6 +234,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "6";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = six;
+                setHighlightOnButton();
             }
         });
 
@@ -176,6 +245,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "7";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = seven;
+                setHighlightOnButton();
             }
         });
 
@@ -184,6 +256,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "8";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = eight;
+                setHighlightOnButton();
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +266,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput+= "9";
                 entryField.setText(userCalculationInput);
+                removeHighlight();
+                previousSelectedButton = nine;
+                setHighlightOnButton();
+            }
+        });
+
+        equals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeHighlight();
+                previousSelectedButton = null;
             }
         });
     }
