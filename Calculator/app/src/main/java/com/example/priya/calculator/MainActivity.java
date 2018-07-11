@@ -1,6 +1,8 @@
 package com.example.priya.calculator;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,12 +43,18 @@ public class MainActivity extends AppCompatActivity {
     private Button eight;
     private Button nine;
     private Button zero;
+    private Button ans;
 
 
     private String userCalculationInput = "";
     private Button previousSelectedButton = null;
 
     ArrayList<String> userInputArray = null;
+
+    private MediaPlayer mediaPlayer;
+
+    private SharedPreferences myPrefs;
+    private static final String PREFS_NAME = "myPrefsFile";
 
 
     @Override
@@ -55,10 +63,18 @@ public class MainActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
         userInputArray = new ArrayList<String>();
         setContentView(R.layout.activity_main);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.clicksound);
 
         setControls();
         setActionListener();
 
+    }
+
+    public void clickSound() {
+        if(mediaPlayer != null) {
+            mediaPlayer.start();
+        }
     }
     public void setHighlightOnButton() {
         if (previousSelectedButton != null) {
@@ -119,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userCalculationInput= "";
                 entryField.setText(userCalculationInput);
+                answerField.setText("");
                 removeHighlight();
                 previousSelectedButton = clear;
                 setHighlightOnButton();
@@ -311,12 +328,17 @@ public class MainActivity extends AppCompatActivity {
         equals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound();
                 removeHighlight();
                 previousSelectedButton = equals;
                 setHighlightOnButton();
                 try {
                     answerField.setTextColor(Color.WHITE);
                     calculate();
+                    myPrefs = getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = myPrefs.edit();
+                    editor.putString("last_answer", answerField.getText().toString());
+                    editor.commit();
                 } catch (EvalError evalError) {
                     evalError.printStackTrace();
                     Toast.makeText(MainActivity.this, "Invalid Input!", Toast.LENGTH_LONG).show();
@@ -335,6 +357,26 @@ public class MainActivity extends AppCompatActivity {
 
                 previousSelectedButton= null;
 
+
+
+
+            }
+        });
+
+        ans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            //Get Datprea Back
+                if(previousSelectedButton != null) {
+                removeHighlight();
+                }
+                previousSelectedButton = ans;
+                setHighlightOnButton();
+                SharedPreferences prefs = getSharedPreferences(PREFS_NAME, 0);
+                if(prefs.contains("last_answer")) {
+                    String previous_answer = prefs.getString("last_answer", "not found");
+                    answerField.setText("PREVIOUS ANSWER: " + previous_answer);
+                }
             }
         });
     }
@@ -369,6 +411,7 @@ public class MainActivity extends AppCompatActivity {
         eight = findViewById(R.id.button8);
         nine = findViewById(R.id.button9);
         zero = findViewById(R.id.zero_button);
+        ans = findViewById(R.id.ans_Button);
     }
 
 
