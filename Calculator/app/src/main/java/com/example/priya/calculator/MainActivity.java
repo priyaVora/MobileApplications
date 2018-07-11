@@ -101,10 +101,16 @@ public class MainActivity extends AppCompatActivity {
         backspace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userCalculationInput = userCalculationInput.substring(0, userCalculationInput.length() - 1);
-                entryField.setText(userCalculationInput);
+                if(!(entryField.getText().equals(""))) {
+
+                    userCalculationInput = userCalculationInput.substring(0, userCalculationInput.length() - 1);
+                    entryField.setText(userCalculationInput);
+
+
+                }
                 removeHighlight();
                 previousSelectedButton = backspace;
+
                 setHighlightOnButton();
             }
         });
