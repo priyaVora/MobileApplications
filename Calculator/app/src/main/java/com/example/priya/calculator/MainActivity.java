@@ -1,12 +1,20 @@
 package com.example.priya.calculator;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Timer;
+
+import bsh.EvalError;
+import bsh.Interpreter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,15 +42,20 @@ public class MainActivity extends AppCompatActivity {
     private Button nine;
     private Button zero;
 
+
     private String userCalculationInput = "";
     private Button previousSelectedButton = null;
+
+    ArrayList<String> userInputArray = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getSupportActionBar().hide();
+        userInputArray = new ArrayList<String>();
         setContentView(R.layout.activity_main);
+
         setControls();
         setActionListener();
 
@@ -69,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = openingParantheses;
                 setHighlightOnButton();
+                userInputArray.add("(");
             }
         });
 
@@ -80,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = closingParentheses;
                 setHighlightOnButton();
+                userInputArray.add(")");
             }
         });
 
@@ -112,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = divide;
                 setHighlightOnButton();
+                userInputArray.add("/");
             }
         });
 
@@ -123,17 +139,19 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = multiply;
                 setHighlightOnButton();
+                userInputArray.add("*");
             }
         });
 
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userCalculationInput = "-";
+                userCalculationInput += "-";
                 entryField.setText(userCalculationInput);
                 removeHighlight();
                 previousSelectedButton = subtract;
                 setHighlightOnButton();
+                userInputArray.add("-");
             }
         });
         add.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = add;
                 setHighlightOnButton();
+                userInputArray.add("+");
             }
         });
 
@@ -155,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = dot;
                 setHighlightOnButton();
+                userInputArray.add(".");
             }
         });
 
@@ -169,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         removeHighlight();
                         previousSelectedButton = zero;
                         setHighlightOnButton();
+                        userInputArray.add("0");
                     }
                 });
             }
@@ -182,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = one;
                 setHighlightOnButton();
+                userInputArray.add("1");
             }
         });
 
@@ -193,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = two;
                 setHighlightOnButton();
+                userInputArray.add("2");
             }
         });
 
@@ -204,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = three;
                 setHighlightOnButton();
+                userInputArray.add("3");
             }
         });
 
@@ -215,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = four;
                 setHighlightOnButton();
+                userInputArray.add("4");
             }
         });
 
@@ -226,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = five;
                 setHighlightOnButton();
+                userInputArray.add("5");
             }
         });
 
@@ -237,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = six;
                 setHighlightOnButton();
+                userInputArray.add("6");
             }
         });
 
@@ -248,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = seven;
                 setHighlightOnButton();
+                userInputArray.add("7");
             }
         });
 
@@ -259,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = eight;
                 setHighlightOnButton();
+                userInputArray.add("8");
             }
         });
         nine.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
                 removeHighlight();
                 previousSelectedButton = nine;
                 setHighlightOnButton();
+                userInputArray.add("9");
             }
         });
 
@@ -276,10 +306,39 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 removeHighlight();
-                previousSelectedButton = null;
+                previousSelectedButton = equals;
+                setHighlightOnButton();
+                try {
+                    answerField.setTextColor(Color.WHITE);
+                    calculate();
+                } catch (EvalError evalError) {
+                    evalError.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Invalid Input!", Toast.LENGTH_LONG).show();
+                    answerField.setText("INVALID CALCULATION: Please enter a valid calculation above.");
+                    answerField.setTextColor(Color.RED);
+                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       equals.setBackgroundResource(R.drawable.button_shape);
+                       equals.setTextColor(Color.WHITE);
+
+                    }
+                }, 1000);
+
+                previousSelectedButton= null;
+
             }
         });
     }
+
+    public void calculate() throws EvalError {
+        Interpreter interpreter = new Interpreter();
+        interpreter.eval("result = " + entryField.getText());
+        answerField.setText(interpreter.get("result").toString());
+    }
+
 
     public void setControls() {
         entryField = findViewById(R.id.entryField);
