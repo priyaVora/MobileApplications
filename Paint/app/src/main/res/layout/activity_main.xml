@@ -15,11 +15,12 @@
         android:layout_gravity="bottom"
 
 
-        />
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
     <com.example.priya.paint.CanvasView
         android:id="@+id/signature_canvas"
-        android:background="@color/transparent_black_11"
         android:layout_width="match_parent"
         android:layout_height="525dp"
         android:textColor="#000" />

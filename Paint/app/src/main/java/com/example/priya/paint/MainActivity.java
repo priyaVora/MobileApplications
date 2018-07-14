@@ -4,20 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.MyAdapter;
 import Model.ListItem;
-import Model.Operation;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
+
+    CanvasView canvasView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         this.getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.recyclerViewId);
+        canvasView = findViewById(R.id.signature_canvas);
         recyclerView.setHasFixedSize(true);
 
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             listItems.add(item);
         }
 
-        adapter = new MyAdapter(this, listItems);
+        adapter = new MyAdapter(this, listItems, canvasView);
 
         recyclerView.setAdapter(adapter);
     }

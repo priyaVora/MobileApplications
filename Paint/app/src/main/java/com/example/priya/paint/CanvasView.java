@@ -9,6 +9,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by Priya on 7/13/2018.
@@ -111,5 +112,16 @@ public class CanvasView extends View {
                 break;
         }
         return true;
+    }
+
+    public Path getmPath() {
+        return mPath;
+    }
+
+    public void toast() {
+        Toast.makeText(context,"Hello", Toast.LENGTH_LONG);
+    }
+    public void setmPath(Path mPath) {
+        this.mPath = mPath;
     }
 }
