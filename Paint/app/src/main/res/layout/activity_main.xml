@@ -6,34 +6,21 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical" >
-    <Button
-        android:id="@+id/clear_button"
-        android:layout_width="40dp"
-        android:layout_height="35dp"
-        android:layout_gravity="top|right"
-        android:text="@string/clear_canvas"
-        android:textSize="10dp" />
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="40dp"
-        android:layout_height="35dp"
-        android:layout_gravity="top|right"
-        android:text="@string/clear_canvas"
-        android:textSize="10dp" />
-
-    <com.example.priya.paint.CanvasView
-            android:id="@+id/signature_canvas"
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:textColor="#000" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewId"
+        android:background="@drawable/border"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="92dp"
         android:layout_gravity="bottom"
 
 
-
         />
+
+    <com.example.priya.paint.CanvasView
+        android:id="@+id/signature_canvas"
+        android:background="@color/transparent_black_11"
+        android:layout_width="match_parent"
+        android:layout_height="525dp"
+        android:textColor="#000" />
 </FrameLayout>

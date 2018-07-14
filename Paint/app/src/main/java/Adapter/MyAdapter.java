@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -38,8 +39,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
-        holder.title.setText("Delete");
-        holder.operation.setText("Delete Button");
+        ListItem item = listItems.get(position);
+        holder.title.setText(item.getSpecificTitle(position));
+        holder.operationImgView.setImageResource(item.getSpecificPhotoId(position));
+       // holder.operationImgView.setImageResource(R.drawable.colorchange);
+         //holder.operationImgView.setImageResource(item.getOperationsList()[position].getPhotoId());
     }
 
     @Override
@@ -49,11 +53,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView title;
-        public Button operation;
+        public ImageView operationImgView;
         public ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.operation_title);
-            operation = itemView.findViewById(R.id.operation_button);
+          operationImgView = itemView.findViewById(R.id.opereation_ImageView);
         }
     }
 }
