@@ -124,7 +124,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Brush")) {
 
-                Custom_Dialog cd = new Custom_Dialog(context);
+                Custom_Dialog cd = new Custom_Dialog(context, canvasView);
                 cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.setCancelable(false);
                 cd.show();

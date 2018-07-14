@@ -124,4 +124,12 @@ public class CanvasView extends View {
     public void setmPath(Path mPath) {
         this.mPath = mPath;
     }
+
+    public Paint getmPaint() {
+        return mPaint;
+    }
+
+    public void setmPaint(Paint mPaint) {
+        this.mPaint = mPaint;
+    }
 }
