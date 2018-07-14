@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,10 +18,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.priya.paint.CanvasView;
+import com.example.priya.paint.MainActivity;
 import com.example.priya.paint.R;
 
 import java.util.List;
 
+import Fragments.Custom_Dialog;
 import Model.ListItem;
 
 /**
@@ -119,6 +123,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             } else if(item.getTitle().equals("Color")) {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Brush")) {
+
+                Custom_Dialog cd = new Custom_Dialog(context);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(false);
+                cd.show();
+
+
+
+
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Upload")) {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
