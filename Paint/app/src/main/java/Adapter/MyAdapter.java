@@ -1,8 +1,10 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,11 +79,42 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             ListItem item = listItems.get(position);
 
             if(item.getTitle().equals("Clear")) {
-                if(canvasView == null) {
-                    Toast.makeText(context, "Canvas is null", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(context, "Canvas is not null", Toast.LENGTH_LONG).show();
-                    canvasView.clearCanvas();
+                if(canvasView != null) {
+                    AlertDialog.Builder alertDialog;
+
+                    alertDialog =  new AlertDialog.Builder(context);
+
+                    //set things up - setup title
+                    alertDialog.setTitle(R.string.alert_title);
+                    alertDialog.setIcon(android.R.drawable.star_big_on);
+
+                    //set message
+                    alertDialog.setMessage(R.string.message);
+                    //set cancelable
+                    alertDialog.setCancelable(false);
+
+                    //set positive button
+                    alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Exit our window activity
+                            canvasView.clearCanvas();
+                        }
+                    });
+
+                    alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Exit our window activity
+                            dialog.cancel();
+                        }
+                    });
+
+                    //create the actual dialog
+                    AlertDialog dialog = alertDialog.create();
+
+                    //show the dialog
+                    alertDialog.show();
                 }
             } else if(item.getTitle().equals("Color")) {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
