@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_gravity="top|right"
+        android:text="@string/clear_canvas"
+        android:textSize="10dp" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_gravity="top|right"
+        android:text="@string/clear_canvas"
+        android:textSize="10dp" />
+
+    <com.example.priya.paint.CanvasView
+            android:id="@+id/signature_canvas"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:textColor="#000" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+
+
+
+        />
+</FrameLayout>
