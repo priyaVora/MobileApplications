@@ -3,28 +3,27 @@ package Adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.priya.paint.CanvasView;
-import com.example.priya.paint.MainActivity;
 import com.example.priya.paint.R;
 
 import java.util.List;
 
-import Fragments.Custom_Dialog;
+import Fragments.Brush_Size_Change_Dialog;
+import Fragments.ColorPicker;
 import Model.ListItem;
+
 
 /**
  * Created by Priya on 7/14/2018.
@@ -34,6 +33,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     public CanvasView canvasView;
     private List<ListItem> listItems;
+    Paint mPaint;
+
+
 
     public MyAdapter(Context context, List listItems, CanvasView canvasView) {
         this.context = context;
@@ -64,6 +66,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return listItems.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
         CanvasView canvas_View;
@@ -86,7 +90,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 if(canvasView != null) {
                     AlertDialog.Builder alertDialog;
 
-                    alertDialog =  new AlertDialog.Builder(context);
+
+                    alertDialog =  new AlertDialog.Builder(context, R.style.AlertDialogStyle);
+
 
                     //set things up - setup title
                     alertDialog.setTitle(R.string.alert_title);
@@ -121,16 +127,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     alertDialog.show();
                 }
             } else if(item.getTitle().equals("Color")) {
-                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
-            } else if(item.getTitle().equals("Brush")) {
-
-                Custom_Dialog cd = new Custom_Dialog(context, canvasView);
+                ColorPicker cd = new ColorPicker(context, canvasView);
                 cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.setCancelable(false);
                 cd.show();
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
+            } else if(item.getTitle().equals("Brush")) {
 
-
-
+                Brush_Size_Change_Dialog cd = new Brush_Size_Change_Dialog(context, canvasView);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(false);
+                cd.show();
 
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Upload")) {
@@ -141,5 +148,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
             }
         }
+    }
+
+    public Paint getmPaint() {
+        return mPaint;
+    }
+
+    public void setmPaint(Paint mPaint) {
+        this.mPaint = mPaint;
     }
 }

@@ -23,7 +23,7 @@ import java.util.Date;
  * Created by Priya on 7/14/2018.
  */
 
-public class Custom_Dialog extends Dialog implements View.OnClickListener{
+public class Brush_Size_Change_Dialog extends Dialog implements View.OnClickListener{
 
     public Context activity;
     public CanvasView canvasView;
@@ -32,7 +32,7 @@ public class Custom_Dialog extends Dialog implements View.OnClickListener{
     private SeekBar mSeekbar;
     private Button save;
 
-    public Custom_Dialog(Context activity, CanvasView canvasView) {
+    public Brush_Size_Change_Dialog(Context activity, CanvasView canvasView) {
         super(activity);
         this.activity = activity;
         this.canvasView = canvasView;
