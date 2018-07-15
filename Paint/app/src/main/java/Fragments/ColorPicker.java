@@ -2,19 +2,21 @@ package Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
 import com.example.priya.paint.CanvasView;
 import com.example.priya.paint.R;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.w3c.dom.Text;
 
-import Model.ColorItem;
 
 /**
  * Created by Priya on 7/14/2018.
@@ -24,13 +26,20 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
     public Context activity;
     public CanvasView canvasView;
     public Dialog dialog;
-    
+
+
+    private Button saveButton;
+    private SeekBar red_SeekBar;
+    private SeekBar green_SeekBar;
+    private SeekBar blue_SeekBar;
+
+
+
 
     public ColorPicker(Context activity, CanvasView canvasView) {
         super(activity);
         this.activity = activity;
         this.canvasView = canvasView;
-
 
     }
 
@@ -38,8 +47,86 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.color_change_dialog);
+
+        saveButton = findViewById(R.id.color_save);
+        red_SeekBar = findViewById(R.id.seekBarRed);
+        green_SeekBar = findViewById(R.id.seekBarGreen);
+        blue_SeekBar = findViewById(R.id.seekBarBlue);
+        final TextView redView = findViewById(R.id.red_textView);
+        final TextView greenView = findViewById(R.id.green_textView);
+        final TextView blueView = findViewById(R.id.blue_textView);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int red = Integer.parseInt(redView.getText().toString().trim());
+                int green = Integer.parseInt(greenView.getText().toString().trim());
+                int blue = Integer.parseInt(blueView.getText().toString().trim());
+                canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
+                dismiss();
+            }
+        });
+
+        saveButton.setTextColor(Color.WHITE);
+        saveButton.setBackgroundColor(Color.TRANSPARENT);
+
+        red_SeekBar.setMax(255);
+        red_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("SB", "Onprogress!");
+                redView.setText("" +seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStartTrackingTouch!");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStop!");
+            }
+        });
+        green_SeekBar.setMax(255);
+        green_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("SB", "Onprogress!");
+                greenView.setText("" +seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStartTrackingTouch!");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStop!");
+            }
+        });
+
+        blue_SeekBar.setMax(255);
+        blue_SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("SB", "Onprogress!");
+                blueView.setText("" +seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStartTrackingTouch!");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.d("SB", "OnStop!");
+            }
+        });
 
     }
 

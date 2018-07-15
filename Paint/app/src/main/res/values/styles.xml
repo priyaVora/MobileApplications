@@ -15,4 +15,19 @@
         <item name="android:background">#11000000</item>
     </style>
 
+    <style name="SeekBarColorRed"
+    parent="Widget.AppCompat.SeekBar">
+    <item name="colorAccent">@color/red</item>
+    </style>
+
+    <style name="SeekBarColorGreen"
+        parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="SeekBarColorBlue"
+        parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
 </resources>

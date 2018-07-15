@@ -88,43 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
             if(item.getTitle().equals("Clear")) {
                 if(canvasView != null) {
-                    AlertDialog.Builder alertDialog;
-
-
-                    alertDialog =  new AlertDialog.Builder(context, R.style.AlertDialogStyle);
-
-
-                    //set things up - setup title
-                    alertDialog.setTitle(R.string.alert_title);
-                    alertDialog.setIcon(android.R.drawable.star_big_on);
-
-                    //set message
-                    alertDialog.setMessage(R.string.message);
-                    //set cancelable
-                    alertDialog.setCancelable(false);
-
-                    //set positive button
-                    alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //Exit our window activity
-                            canvasView.clearCanvas();
-                        }
-                    });
-
-                    alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Exit our window activity
-                            dialog.cancel();
-                        }
-                    });
-
-                    //create the actual dialog
-                    AlertDialog dialog = alertDialog.create();
-
-                    //show the dialog
-                    alertDialog.show();
+                    alertDialog();
                 }
             } else if(item.getTitle().equals("Color")) {
                 ColorPicker cd = new ColorPicker(context, canvasView);
@@ -149,6 +113,49 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         }
     }
+
+
+    public void alertDialog() {
+        AlertDialog.Builder alertDialog;
+
+
+        alertDialog =  new AlertDialog.Builder(context, R.style.AlertDialogStyle);
+
+
+        //set things up - setup title
+        alertDialog.setTitle(R.string.alert_title);
+        alertDialog.setIcon(android.R.drawable.star_big_on);
+
+        //set message
+        alertDialog.setMessage(R.string.message);
+        //set cancelable
+        alertDialog.setCancelable(false);
+
+        //set positive button
+        alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Exit our window activity
+                canvasView.clearCanvas();
+            }
+        });
+
+        alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Exit our window activity
+                dialog.cancel();
+            }
+        });
+
+        //create the actual dialog
+        AlertDialog dialog = alertDialog.create();
+
+        //show the dialog
+        alertDialog.show();
+    }
+
+
 
     public Paint getmPaint() {
         return mPaint;
