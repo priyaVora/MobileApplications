@@ -78,8 +78,13 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeJoin(Paint.Join.ROUND);
                 mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
+                canvasView.addPath(mPath);
+                canvasView.addPaint(mPaint);
                 canvasView.setmPaint(mPaint);
-                canvasView.setmPath(mPath);
+
+                canvasView.setmPathCurrent(mPath);
+                canvasView.setmPaintCurrent(mPaint);
+
                 //canvasView.setmPaint(new Path());
                // canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
                 dismiss();

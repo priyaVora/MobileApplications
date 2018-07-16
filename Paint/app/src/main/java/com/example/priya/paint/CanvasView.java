@@ -11,6 +11,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Priya on 7/13/2018.
  */
@@ -27,8 +30,12 @@ public class CanvasView extends View {
     private float mX, mY;
     private static final float TOLERANCE = 5;
 
-    
+    private Path mPathCurrent;
+    private Paint mPaintCurrent;
 
+
+    List<Path> pathList = new ArrayList<Path>();
+    List<Paint> mPaintList = new ArrayList<Paint>();
 
 
     public CanvasView(Context c, AttributeSet attrs) {
@@ -45,6 +52,26 @@ public class CanvasView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(4f);
+
+        mPathCurrent = mPath;
+        mPaintCurrent = mPaint;
+
+        addPaint(mPaint);
+        addPath(mPath);
+    }
+
+    public void addPaint(Paint mPaint) {
+        if(!(mPaintList.contains(mPaint))) {
+            mPaintList.add(mPaint);
+            mPaintCurrent = mPaint;
+        }
+    }
+
+    public void addPath(Path mPath) {
+        if(!(pathList.contains(mPath))) {
+            pathList.add(mPath);
+            mPathCurrent = mPath;
+        }
     }
 
     // override onSizeChanged
@@ -62,14 +89,24 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // draw the mPath with the mPaint on the canvas when onDraw
-        canvas.drawPath(mPath, mPaint);
+      //  canvas.drawPath(mPath, mPaint);
+
+        int count = 0;
+        for (Path path : pathList) {
+            canvas.drawPath(path, mPaintList.get(count));
+            count++;
+        }
+//        canvas.drawPath(mPathCurrent, mPaintCurrent);
     }
 
     // when ACTION_DOWN start touch according to the x,y values
     private void startTouch(float x, float y) {
-        mPath.moveTo(x, y);
+        mPathCurrent.moveTo(x, y);
+        //mPathCurrent.moveTo(x,y);
         mX = x;
         mY = y;
+        pathList.add(mPathCurrent);
+        mPaintList.add(mPaintCurrent);
     }
 
     // when ACTION_MOVE move touch according to the x,y values
@@ -77,15 +114,39 @@ public class CanvasView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOLERANCE || dy >= TOLERANCE) {
-            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+            mPathCurrent.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
         }
+        //mPathCurrent.lineTo(mX, mY);
     }
 
     public void clearCanvas() {
-        mPath.reset();
-        invalidate();
+        for (Path each_path: pathList) {
+                each_path.reset();
+            invalidate();
+        }
+        resetToDefaultBrush();
+    }
+
+    public void resetToDefaultBrush() {
+        pathList.clear();
+        mPaintList.clear();
+        mPath = new Path();
+
+        // and we set a new Paint with the desired attributes
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeWidth(4f);
+
+        mPathCurrent = mPath;
+        mPaintCurrent = mPaint;
+
+        addPaint(mPaint);
+        addPath(mPath);
     }
 
     // when ACTION_UP stop touch
@@ -133,5 +194,22 @@ public class CanvasView extends View {
 
     public void setmPaint(Paint mPaint) {
         this.mPaint = mPaint;
+    }
+
+    public Path getmPathCurrent() {
+        return mPathCurrent;
+    }
+
+    public void setmPathCurrent(Path mPathCurrent) {
+        this.mPathCurrent = mPathCurrent;
+    }
+
+
+    public Paint getmPaintCurrent() {
+        return mPaintCurrent;
+    }
+
+    public void setmPaintCurrent(Paint mPaintCurrent) {
+        this.mPaintCurrent = mPaintCurrent;
     }
 }
