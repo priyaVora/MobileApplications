@@ -27,6 +27,8 @@ public class CanvasView extends View {
     private float mX, mY;
     private static final float TOLERANCE = 5;
 
+    
+
 
 
     public CanvasView(Context c, AttributeSet attrs) {

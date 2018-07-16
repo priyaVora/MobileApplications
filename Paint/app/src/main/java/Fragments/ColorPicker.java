@@ -3,6 +3,8 @@ package Fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -64,7 +66,22 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
                 int red = Integer.parseInt(redView.getText().toString().trim());
                 int green = Integer.parseInt(greenView.getText().toString().trim());
                 int blue = Integer.parseInt(blueView.getText().toString().trim());
-                canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
+                Path mPath;
+                Paint mPaint;
+
+                mPath = new Path();
+
+                // and we set a new Paint with the desired attributes
+                mPaint = new Paint();
+                mPaint.setAntiAlias(true);
+                mPaint.setColor(Color.rgb(red, green, blue));
+                mPaint.setStyle(Paint.Style.STROKE);
+                mPaint.setStrokeJoin(Paint.Join.ROUND);
+                mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
+                canvasView.setmPaint(mPaint);
+                canvasView.setmPath(mPath);
+                //canvasView.setmPaint(new Path());
+               // canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
                 dismiss();
             }
         });
