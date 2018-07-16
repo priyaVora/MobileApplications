@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -84,38 +86,57 @@ public class Brush_Size_Change_Dialog extends Dialog implements View.OnClickList
 
 
     }
-
+    
     public void setBrushStrokeSize(int percent_value) {
+        Path mPath;
+        Paint mPaint;
+        mPath = new Path();
+
+        // and we set a new Paint with the desired attributes
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(canvasView.getmPaint().getColor());
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
         if(percent_value == 10) {
-            canvasView.getmPaint().setStrokeWidth(4f);
+            mPaint.setStrokeWidth(4f);
         }
         else if(percent_value == 20) {
-            canvasView.getmPaint().setStrokeWidth(24f);
+            mPaint.setStrokeWidth(24f);
         }
         else if(percent_value == 30) {
-            canvasView.getmPaint().setStrokeWidth(34f);
+            mPaint.setStrokeWidth(34f);
         }
         else if(percent_value == 40) {
-            canvasView.getmPaint().setStrokeWidth(44f);
+            mPaint.setStrokeWidth(44f);
         }
         else if(percent_value == 50) {
-            canvasView.getmPaint().setStrokeWidth(54f);
+            mPaint.setStrokeWidth(54f);
         }
         else if(percent_value == 60) {
-            canvasView.getmPaint().setStrokeWidth(54f);
+            mPaint.setStrokeWidth(54f);
         }
         else if(percent_value == 70) {
-            canvasView.getmPaint().setStrokeWidth(64f);
+            mPaint.setStrokeWidth(64f);
         }
         else if(percent_value == 80) {
-            canvasView.getmPaint().setStrokeWidth(74f);
+            mPaint.setStrokeWidth(74f);
         }else if(percent_value == 90) {
-            canvasView.getmPaint().setStrokeWidth(84f);
+            mPaint.setStrokeWidth(84f);
         }else if(percent_value == 100) {
-            canvasView.getmPaint().setStrokeWidth(94f);
+            mPaint.setStrokeWidth(94f);
         } else {
-            canvasView.getmPaint().setStrokeWidth(4f);
+            mPaint.setStrokeWidth(4f);
         }
+
+
+        canvasView.addPath(mPath);
+        canvasView.addPaint(mPaint);
+        canvasView.setmPaint(mPaint);
+
+        canvasView.setmPathCurrent(mPath);
+        canvasView.setmPaintCurrent(mPaint);
     }
 
     @Override
