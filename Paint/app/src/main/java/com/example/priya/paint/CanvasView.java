@@ -1,11 +1,13 @@
 package com.example.priya.paint;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +46,6 @@ public class CanvasView extends View {
 
         // we set a new Path
         mPath = new Path();
-
         // and we set a new Paint with the desired attributes
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -58,6 +59,19 @@ public class CanvasView extends View {
 
         addPaint(mPaint);
         addPath(mPath);
+
+
+        Paint mPaint2 = new Paint();
+        Path mPath2 = new Path();
+
+        mPaint2.setAntiAlias(true);
+        mPaint2.setColor(Color.BLACK);
+        mPaint2.setStyle(Paint.Style.STROKE);
+        mPaint2.setStrokeJoin(Paint.Join.ROUND);
+        mPaint2.setStrokeWidth(4f);
+
+        addPaint(mPaint2);
+        addPath(mPath2);
     }
 
     public void addPaint(Paint mPaint) {
@@ -92,12 +106,66 @@ public class CanvasView extends View {
       //  canvas.drawPath(mPath, mPaint);
 
         int count = 0;
-        for (Path path : pathList) {
-            canvas.drawPath(path, mPaintList.get(count));
-            count++;
+        if(!pathList.isEmpty()) {
+            for (Path path : pathList) {
+                if(count > 0) {
+                    canvas.drawPath(path, mPaintList.get(count));
+                }
+                count++;
+            }
+        } else {
+
+            alertDialog();
         }
+
 //        canvas.drawPath(mPathCurrent, mPaintCurrent);
     }
+
+
+    public void alertDialog() {
+        AlertDialog.Builder alertDialog;
+
+
+        alertDialog =  new AlertDialog.Builder(context, R.style.AlertDialogStyle);
+
+
+        //set things up - setup title
+        alertDialog.setTitle(R.string.alert_title);
+        alertDialog.setIcon(android.R.drawable.star_big_on);
+
+        //set message
+        alertDialog.setMessage(R.string.message);
+        //set cancelable
+        alertDialog.setCancelable(false);
+
+        //set positive button
+//        alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                //Exit our window activity
+//                this.clearCanvas();
+//            }
+//        });
+
+        alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Exit our window activity
+                dialog.cancel();
+            }
+        });
+
+        //create the actual dialog
+        AlertDialog dialog = alertDialog.create();
+
+        //show the dialog
+        alertDialog.show();
+    }
+
+
+
+
+
 
     // when ACTION_DOWN start touch according to the x,y values
     private void startTouch(float x, float y) {
@@ -105,8 +173,11 @@ public class CanvasView extends View {
         //mPathCurrent.moveTo(x,y);
         mX = x;
         mY = y;
-        pathList.add(mPathCurrent);
-        mPaintList.add(mPaintCurrent);
+        if(!pathList.contains(mPathCurrent)) {
+            pathList.add(mPathCurrent);
+            mPaintList.add(mPaintCurrent);
+        }
+
     }
 
     // when ACTION_MOVE move touch according to the x,y values
@@ -126,7 +197,6 @@ public class CanvasView extends View {
                 each_path.reset();
             invalidate();
         }
-        resetToDefaultBrush();
     }
 
     public void resetToDefaultBrush() {
