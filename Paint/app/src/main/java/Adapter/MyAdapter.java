@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -108,8 +109,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Clear")) {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
-            } else {
+            } else if(item.getTitle().equals("Erase")) {
+                Path mPath;
+                Paint mPaint;
 
+                mPath = new Path();
+
+                // and we set a new Paint with the desired attributes
+                mPaint = new Paint();
+                mPaint.setAntiAlias(true);
+                mPaint.setColor(Color.rgb(255, 255, 255));
+                mPaint.setStyle(Paint.Style.STROKE);
+                mPaint.setStrokeJoin(Paint.Join.ROUND);
+                mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
+                canvasView.addPath(mPath);
+                canvasView.addPaint(mPaint);
+                canvasView.setmPaint(mPaint);
+
+                canvasView.setmPathCurrent(mPath);
+                canvasView.setmPaintCurrent(mPaint);
+
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             }
         }
     }

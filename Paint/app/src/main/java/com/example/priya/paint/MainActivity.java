@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManger = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManger);
-        String[] operationsList = {"Color", "Brush","Upload", "Clear", "Add+ 1", "Add+ 2", "Add+3"
-        ,"Add+ 4", "Add+ 5"};
+        String[] operationsList = {"Color", "Brush","Upload", "Clear", "Erase", "Text", "Paint Fill"
+        ,"Shapes", "Stickers"};
 
         listItems = new ArrayList<>();
 
