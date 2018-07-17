@@ -199,6 +199,7 @@ public class CanvasView extends View {
                 each_path.reset();
             invalidate();
         }
+        this.setBackgroundColor(Color.WHITE);
     }
 
     public void resetToDefaultBrush() {

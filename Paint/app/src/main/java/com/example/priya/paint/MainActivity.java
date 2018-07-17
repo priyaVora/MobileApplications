@@ -27,6 +27,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null) {
+            Toast.makeText(getApplicationContext(), "SAVED INSTANCES", Toast.LENGTH_LONG).show();
+
+        } else {
+
+            Toast.makeText(getApplicationContext(), "NOT SAVED INSTANCES", Toast.LENGTH_LONG).show();
+        }
+
+
+
         setContentView(R.layout.activity_main);
         this.getSupportActionBar().hide();
 
@@ -52,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             listItems.add(item);
         }
 
-        adapter = new MyAdapter(this, listItems, canvasView);
+        adapter = new MyAdapter(this, listItems, canvasView, savedInstanceState);
 
         recyclerView.setAdapter(adapter);
         setPermissionsOnDevice();

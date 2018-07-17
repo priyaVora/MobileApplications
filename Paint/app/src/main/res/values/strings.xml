@@ -9,4 +9,6 @@
     <string name="alert_title">Alert!</string>
     <string name="save">Save</string>
     <string name="dash">-</string>
+    <string name="load">Load</string>
+    <string name="add_image">Add Image</string>
 </resources>

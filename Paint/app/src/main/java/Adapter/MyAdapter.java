@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -22,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.priya.paint.BrowsePictureActivity;
 import com.example.priya.paint.CanvasView;
+import com.example.priya.paint.MainActivity;
 import com.example.priya.paint.R;
+import com.example.priya.paint.StickerActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +44,9 @@ import Fragments.Brush_Size_Change_Dialog;
 import Fragments.ColorPicker;
 import Model.ListItem;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+import static android.support.v4.content.ContextCompat.startActivity;
+
 
 /**
  * Created by Priya on 7/14/2018.
@@ -50,13 +57,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public CanvasView canvasView;
     private List<ListItem> listItems;
     Paint mPaint;
+    Bundle savedInstanceState;
+    public static final int GET_FROM_GALLERY = 3;
 
 
 
-    public MyAdapter(Context context, List listItems, CanvasView canvasView) {
+    public MyAdapter(Context context, List listItems, CanvasView canvasView, Bundle saved) {
         this.context = context;
         this.listItems = listItems;
         this.canvasView = canvasView;
+        this.savedInstanceState = saved;
     }
 
 
@@ -88,6 +98,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView title;
         CanvasView canvas_View;
         public ImageView operationImgView;
+        private Intent REQUEST_CODE;
+
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -121,6 +133,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Upload")) {
+
+                Intent intent = new Intent(context, BrowsePictureActivity.class);
+
+                intent.putExtra("bundle", savedInstanceState);
+                view.getContext().startActivity(intent);
+
+
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
             } else if(item.getTitle().equals("Clear")) {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
@@ -128,12 +147,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Path mPath;
                 Paint mPaint;
 
+
+
                 mPath = new Path();
 
                 // and we set a new Paint with the desired attributes
                 mPaint = new Paint();
                 mPaint.setAntiAlias(true);
-                mPaint.setColor(Color.rgb(255, 255, 255));
+                mPaint.setColor(canvasView.getDrawingCacheBackgroundColor());
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeJoin(Paint.Join.ROUND);
                 mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
@@ -181,12 +202,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             } else if(item.getTitle().equals("Paint Fill")) {
                 canvasView.setBackgroundColor(canvasView.getmPaintCurrent().getColor());
 
-            } else {
+            } else if(item.getTitle().equals("Text")){
+                Intent intent = new Intent(context, StickerActivity.class);
 
-
+                intent.putExtra("bundle", savedInstanceState);
+                view.getContext().startActivity(intent);
             }
         }
     }
+
+
+
 
     private static String getGalleryPath() {
         return Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/Camera";
