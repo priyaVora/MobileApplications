@@ -86,7 +86,7 @@ public class Brush_Size_Change_Dialog extends Dialog implements View.OnClickList
 
 
     }
-    
+
     public void setBrushStrokeSize(int percent_value) {
         Path mPath;
         Paint mPaint;

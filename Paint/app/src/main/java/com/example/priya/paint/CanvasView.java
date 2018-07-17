@@ -43,6 +43,7 @@ public class CanvasView extends View {
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
         context = c;
+        this.setBackgroundColor(Color.WHITE);
 
         // we set a new Path
         mPath = new Path();
@@ -53,6 +54,7 @@ public class CanvasView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(4f);
+
 
         mPathCurrent = mPath;
         mPaintCurrent = mPaint;

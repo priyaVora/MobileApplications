@@ -14,11 +14,11 @@ public class ListItem {
     public String title;
     public int photoId = R.drawable.colorchange;
 
-    String[] operationsList = {"Color", "Brush", "Upload","Clear","Erase", "Text", "Paint Fill", "Shapes"
-            , "Stickers"};
+    String[] operationsList = {"Color", "Brush", "Upload","Clear","Erase", "Text", "Paint Fill", "Save"
+            , "Shapes"};
 
     int[] photoIdList = {R.drawable.colorchange, R.drawable.brush_change,R.drawable.upload,R.drawable.clear, R.drawable.erase,
-            R.drawable.text,R.drawable.paint_fill,R.drawable.add,R.drawable.shapes};
+            R.drawable.text,R.drawable.paint_fill,R.drawable.save,R.drawable.shapes};
 
 
     public ListItem(String title, int photoId) {
