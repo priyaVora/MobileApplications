@@ -2,11 +2,16 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +25,13 @@ import com.example.priya.paint.R;
 import com.example.priya.paint.StickerActivity;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
+import com.xiaopo.flying.sticker.TextSticker;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
+import Fragments.Add_Text_Dialog;
 import Fragments.ColorPicker;
 import Model.ListItem;
 import Model.StickerItem;
@@ -90,7 +99,53 @@ public class MyStickerAdapter extends  RecyclerView.Adapter<MyStickerAdapter.Vie
                 cd.setCancelable(false);
                 cd.show();
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
+            } else if(item.getTitle().equals("Save")) {
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
 
+                try {
+                    stickerView.setDrawingCacheEnabled(true);
+
+                    Bitmap bitmap = stickerView.getDrawingCache();
+                    Canvas canvas = new Canvas();
+                    canvas.drawColor(Color.WHITE);
+                    canvas.drawBitmap(bitmap, 0, 0, null);
+
+
+                    File f = null;
+                    if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                        File file = new File(Environment.getExternalStorageDirectory(),"DCIM/Screenshots");
+                        if(!file.exists()){
+                            file.mkdirs();
+                        }
+                        f = new File(file.getAbsolutePath()+file.separator+ "text_save"+".jpg");
+                    }
+                    FileOutputStream ostream = new FileOutputStream(f);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 10, ostream);
+                    ostream.close();
+                    Toast unsavedToast = Toast.makeText(context,
+                            "Image could be saved.", Toast.LENGTH_SHORT);
+                    unsavedToast.show();
+                } catch(Exception e){
+                    Toast unsavedToast = Toast.makeText(context,
+                            "Oops!!! Image could not be saved." + e.toString(), Toast.LENGTH_SHORT);
+                    unsavedToast.show();
+                    e.printStackTrace();
+                }
+                Toast.makeText(context, "Save should happen", Toast.LENGTH_LONG).show();
+            } else if(item.getTitle().equals("Add Text")) {
+                Add_Text_Dialog cd = new Add_Text_Dialog(context, stickerView);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(false);
+                cd.show();
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
+//                TextSticker sticker = new TextSticker(context);
+//                sticker.setDrawable(ContextCompat.getDrawable(context, R.drawable.sticker_transparent_background));
+//                sticker.setTextColor(Color.BLACK);
+//                sticker.setText("Priya!");
+//                sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+//                sticker.resizeText();
+//
+//                stickerView.addSticker(sticker);
             }
         }
     }

@@ -35,6 +35,8 @@ public class CanvasView extends View {
     private Path mPathCurrent;
     private Paint mPaintCurrent;
 
+    private int backgroundColor;
+
 
     List<Path> pathList = new ArrayList<Path>();
     List<Paint> mPaintList = new ArrayList<Paint>();
@@ -44,6 +46,7 @@ public class CanvasView extends View {
         super(c, attrs);
         context = c;
         this.setBackgroundColor(Color.WHITE);
+        backgroundColor = Color.WHITE;
 
         // we set a new Path
         mPath = new Path();
@@ -123,6 +126,14 @@ public class CanvasView extends View {
 //        canvas.drawPath(mPathCurrent, mPaintCurrent);
     }
 
+    public int getBackgroundColorOther() {
+        return backgroundColor;
+    }
+
+
+    public void setBackgroundColorOther(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
 
     public void alertDialog() {
         AlertDialog.Builder alertDialog;

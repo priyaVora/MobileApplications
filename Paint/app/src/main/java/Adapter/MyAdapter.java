@@ -147,14 +147,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Path mPath;
                 Paint mPaint;
 
-
-
                 mPath = new Path();
 
                 // and we set a new Paint with the desired attributes
                 mPaint = new Paint();
                 mPaint.setAntiAlias(true);
-                mPaint.setColor(canvasView.getDrawingCacheBackgroundColor());
+                mPaint.setColor(canvasView.getBackgroundColorOther());
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeJoin(Paint.Join.ROUND);
                 mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
@@ -201,6 +199,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
             } else if(item.getTitle().equals("Paint Fill")) {
                 canvasView.setBackgroundColor(canvasView.getmPaintCurrent().getColor());
+                canvas_View.setBackgroundColorOther(canvasView.getmPaintCurrent().getColor());
 
             } else if(item.getTitle().equals("Text")){
                 Intent intent = new Intent(context, StickerActivity.class);
