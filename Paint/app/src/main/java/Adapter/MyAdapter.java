@@ -147,99 +147,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
 
             } else if(item.getTitle().equals("Save")) {
-//                Bitmap bitmap;
-//
-//                canvasView.setDrawingCacheEnabled(true);
-//                bitmap = Bitmap.createBitmap(canvasView.getDrawingCache());
-//                canvasView.setDrawingCacheEnabled(false);
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
-//                try {
-//                    canvasView.setDrawingCacheEnabled(true);
-//                    Bitmap bitmap = canvasView.getDrawingCache();
-//                    File f = null;
-//                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//                        File file = new File(Environment.getExternalStorageDirectory(), "TTImages_cache");
-//                        if (!file.exists()) {
-//                            file.mkdirs();
-//                        }
-//                        f = new File(file.getAbsolutePath() + file.separator + "filename" + ".png");
-//                    }
-//                    FileOutputStream ostream = new FileOutputStream(f);
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 10, ostream);
-//                    ostream.close();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                Bitmap b = null;
 
-//create directory if not exist
-//                File rootsd = Environment.getExternalStorageDirectory();
-//                File dcim = new File(rootsd.getAbsolutePath() + "/DCIM");
-//                File dir = new File(dcim.getPath());
-//                if (!dir.exists()) {
-//                    dir.mkdirs();
-//                }
-//
-//                File output = new File(dir, "tempfile.jpg");
-//                OutputStream os = null;
-//
-//                try {
-//                    os = new FileOutputStream(output);
-//                    b.compress(Bitmap.CompressFormat.JPEG, 100, os);
-//                    os.flush();
-//                    os.close();
-//
-//                    //this code will scan the image so that it will appear in your gallery when you open next time
-//                    MediaScannerConnection.scanFile(canvasView.getContext(), new String[] { output.toString() }, null,
-//                            new MediaScannerConnection.OnScanCompletedListener() {
-//                                public void onScanCompleted(String path, Uri uri) {
-//                                   // Log.d("appname", "image is saved in gallery and gallery is refreshed.");
-//                                }
-//                            }
-//                    );
-//                } catch (Exception e) {
-//                }
-
-                //String fileName = String.valueOf("PAINT_SAVED_IMAGE");
-// generate the image path
-               // String imagePath = Environment.getExternalStorageDirectory().toString() + File.separator +  fileName + ".png";
-
-//                try {
-//
-//                    // save the image as png
-//                    FileOutputStream out = new FileOutputStream(imagePath);
-//                    // compress the image to png and pass it to the output stream
-//                    loadBitmapFromView(view).compress(Bitmap.CompressFormat.PNG, 90, out);
-//
-//                    // save the image
-//                    out.flush();
-//                    out.close();
-//                    Toast.makeText(context, "NO Error saving image", Toast.LENGTH_LONG);
-//                } catch (Exception error) {
-//                    Toast.makeText(context, "Error saving image", Toast.LENGTH_LONG);
-//                    //Log.e("Error saving image", error.getMessage());
-//                }
-//                canvasView.setDrawingCacheEnabled(true);
-//                String imgSaved = MediaStore.Images.Media.insertImage(
-//                        context.getContentResolver(), canvasView.getDrawingCache(),
-//                        UUID.randomUUID().toString()+".png", "drawing");
-//                if(imgSaved!=null){
-//                    Toast savedToast = Toast.makeText(context,
-//                            "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
-//                    savedToast.show();
-//                }
-//                else{
-//                    Toast unsavedToast = Toast.makeText(context,
-//                            "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
-//                    unsavedToast.show();
-//                }
-//                canvasView.destroyDrawingCache();
-
-
-
-                Toast unsavedToast1 = Toast.makeText(context,
-                        "Before Try Catch", Toast.LENGTH_SHORT);
-                /////////////////////
                 try {
                     canvas_View.setDrawingCacheEnabled(true);
 
@@ -269,8 +178,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     unsavedToast.show();
                     e.printStackTrace();
                 }
+            } else if(item.getTitle().equals("Paint Fill")) {
+                canvasView.setBackgroundColor(canvasView.getmPaintCurrent().getColor());
 
-
+            } else {
 
 
             }
