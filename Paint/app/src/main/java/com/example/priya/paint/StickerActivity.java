@@ -52,7 +52,7 @@ public class StickerActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManger = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManger);
-        String[] operationsList = {"Go Back", "Add Text", "Text", "Paint Fill", "Save"};
+        String[] operationsList = {"Go Back", "Add Text", "Clear", "Paint Fill", "Save"};
 
         stickerItemList = new ArrayList<>();
 

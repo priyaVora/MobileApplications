@@ -12,6 +12,8 @@ import android.view.Window;
 
 import com.example.priya.paint.CanvasView;
 import com.example.priya.paint.R;
+import com.xiaopo.flying.sticker.StickerView;
+
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
 
     public Context activity;
     public CanvasView canvasView;
+    StickerView stickerView;
     public Dialog dialog;
 
 
@@ -44,6 +47,13 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
         this.canvasView = canvasView;
 
     }
+
+    public ColorPicker(Context activity, StickerView stickerView) {
+        super(activity);
+        this.activity = activity;
+        this.stickerView = stickerView;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,22 +82,29 @@ public class ColorPicker extends Dialog implements View.OnClickListener{
                 mPath = new Path();
 
                 // and we set a new Paint with the desired attributes
-                mPaint = new Paint();
-                mPaint.setAntiAlias(true);
-                mPaint.setColor(Color.rgb(red, green, blue));
-                mPaint.setStyle(Paint.Style.STROKE);
-                mPaint.setStrokeJoin(Paint.Join.ROUND);
-                mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
-                canvasView.addPath(mPath);
-                canvasView.addPaint(mPaint);
-                canvasView.setmPaint(mPaint);
+                if(canvasView != null) {
+                    mPaint = new Paint();
+                    mPaint.setAntiAlias(true);
+                    mPaint.setColor(Color.rgb(red, green, blue));
+                    mPaint.setStyle(Paint.Style.STROKE);
+                    mPaint.setStrokeJoin(Paint.Join.ROUND);
+                    mPaint.setStrokeWidth(canvasView.getmPaint().getStrokeWidth());
+                    canvasView.addPath(mPath);
+                    canvasView.addPaint(mPaint);
+                    canvasView.setmPaint(mPaint);
 
-                canvasView.setmPathCurrent(mPath);
-                canvasView.setmPaintCurrent(mPaint);
+                    canvasView.setmPathCurrent(mPath);
+                    canvasView.setmPaintCurrent(mPaint);
 
-                //canvasView.setmPaint(new Path());
-               // canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
-                dismiss();
+                    //canvasView.setmPaint(new Path());
+                    // canvasView.getmPaint().setColor(Color.rgb(red, green, blue));
+                    dismiss();
+                } else if(stickerView != null) {
+                    Toast.makeText(activity, "PAINT WILL CHANGE", Toast.LENGTH_LONG).show();
+                    stickerView.setBackgroundColor(Color.rgb(red, green, blue));
+                    dismiss();
+            }
+
             }
         });
 

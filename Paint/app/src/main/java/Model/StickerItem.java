@@ -11,11 +11,11 @@ public class StickerItem {
     public String title;
     public int photoId = R.drawable.colorchange;
 
-    String[] operationsList = {"Go Back", "Add Text", "Text", "Paint Fill", "Save"};
+    String[] operationsList = {"Go Back", "Add Text", "Clear", "Paint Fill", "Save"};
 
     //String[] operationsList = {"Go Back", "Text", "Change Background", "Save"};
 
-    int[] photoIdList = {R.drawable.colorchange, R.drawable.brush_change,R.drawable.upload,R.drawable.clear, R.drawable.colorchange};
+    int[] photoIdList = {R.drawable.go_back, R.drawable.add_text,R.drawable.clear,R.drawable.paint_fill, R.drawable.save};
 
 
     public StickerItem(String title, int photoId) {

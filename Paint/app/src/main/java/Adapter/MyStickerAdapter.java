@@ -2,7 +2,9 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.priya.paint.CanvasView;
+import com.example.priya.paint.MainActivity;
 import com.example.priya.paint.R;
 import com.example.priya.paint.StickerActivity;
 import com.xiaopo.flying.sticker.Sticker;
@@ -20,6 +23,7 @@ import com.xiaopo.flying.sticker.StickerView;
 
 import java.util.List;
 
+import Fragments.ColorPicker;
 import Model.ListItem;
 import Model.StickerItem;
 
@@ -73,14 +77,24 @@ public class MyStickerAdapter extends  RecyclerView.Adapter<MyStickerAdapter.Vie
         public void onClick(View view) {
             int position = getAdapterPosition();
             StickerItem item = listItems.get(position);
-            Toast.makeText(context, "Clicked",Toast.LENGTH_LONG).show();
-            if(item.getTitle().equals("Text")) {
+            Toast.makeText(context, item.getTitle(),Toast.LENGTH_LONG).show();
+            if(item.getTitle().equals("Clear")) {
                 Intent intent = new Intent(context, StickerActivity.class);
                 view.getContext().startActivity(intent);
+            } else if(item.getTitle().equals("Go Back")) {
+                Intent intent = new Intent(context, MainActivity.class);
+                view.getContext().startActivity(intent);
+            } else if(item.getTitle().equals("Paint Fill")) {
+                ColorPicker cd = new ColorPicker(context, stickerView);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(false);
+                cd.show();
+                Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
 
             }
         }
     }
+
 }
 
 
