@@ -4,27 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/border"
     tools:context="com.example.priya.paint.StickerActivity">
 
-    <com.xiaopo.flying.sticker.StickerView
-        android:id="@+id/stickerView"
-        android:layout_width="match_parent"
-        android:layout_height="525dp"
-        >
-
-        <ImageView
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top">
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/stickerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.xiaopo.flying.sticker.StickerView>
+            android:layout_height="600dp"
+            android:foregroundGravity="top"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"/>
+        </com.xiaopo.flying.sticker.StickerView>
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:hint="Enter Text"
+            android:textSize="14sp"
+            android:gravity="bottom|center"
+            />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewId"
-        android:background="@drawable/border"
+        android:id="@+id/recyclerViewId_sticker"
+        android:backgroundTint="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="92dp"
         android:layout_gravity="bottom"
         >
 
     </android.support.v7.widget.RecyclerView>
+
+
 
 </RelativeLayout>

@@ -4,20 +4,27 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 
 import com.xiaopo.flying.sticker.StickerView;
 import com.xiaopo.flying.sticker.TextSticker;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import Adapter.MyAdapter;
+import Adapter.MyStickerAdapter;
 import Model.ListItem;
+import Model.StickerItem;
 
 public class StickerActivity extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private List<ListItem> listItems;
+    private List<StickerItem> stickerItemList;
+
     StickerView stickerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,30 @@ public class StickerActivity extends AppCompatActivity {
 
         stickerView.addSticker(sticker);
 
+
+        recyclerView = findViewById(R.id.recyclerViewId_sticker);
+        recyclerView.setHasFixedSize(true);
+
+
+
+
+        LinearLayoutManager layoutManger = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(layoutManger);
+        String[] operationsList = {"Go Back", "Add Text", "Text", "Paint Fill", "Save"};
+
+        stickerItemList = new ArrayList<>();
+
+        for(int i = 0; i< operationsList.length;i++) {
+            StickerItem item = new StickerItem(
+                    operationsList[i], R.drawable.colorchange
+            );
+
+            stickerItemList.add(item);
+        }
+
+        adapter = new MyStickerAdapter(this, stickerItemList,stickerView);
+
+        recyclerView.setAdapter(adapter);
 
     }
 }
