@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.priya.recyclev.BrowsePictureActivity;
 import com.example.priya.recyclev.DetailsActivity;
 import com.example.priya.recyclev.R;
 
@@ -64,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //Get position of the row clicked or tapped.
             int position = getAdapterPosition();
             ListItem item = listItems.get(position);
-            Intent intent = new Intent(context, DetailsActivity.class);
+            Intent intent = new Intent(context, BrowsePictureActivity.class);
             intent.putExtra("name", item.getName());
             intent.putExtra("description",item.getDescription());
 

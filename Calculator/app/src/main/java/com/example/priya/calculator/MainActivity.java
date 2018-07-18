@@ -389,7 +389,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setControls() {
-        entryField = findViewById(R.id.entryField);
+        entryField = findViewById(
+
+
+                R.id.entryField);
         answerField = findViewById(R.id.answerField);
         openingParantheses = findViewById(R.id.opening_parantheses);
         closingParentheses = findViewById(R.id.closing_parantheses);

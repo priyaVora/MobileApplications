@@ -138,14 +138,7 @@ public class MyStickerAdapter extends  RecyclerView.Adapter<MyStickerAdapter.Vie
                 cd.setCancelable(false);
                 cd.show();
                 Toast.makeText(context, item.getTitle(), Toast.LENGTH_LONG).show();
-//                TextSticker sticker = new TextSticker(context);
-//                sticker.setDrawable(ContextCompat.getDrawable(context, R.drawable.sticker_transparent_background));
-//                sticker.setTextColor(Color.BLACK);
-//                sticker.setText("Priya!");
-//                sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
-//                sticker.resizeText();
-//
-//                stickerView.addSticker(sticker);
+
             }
         }
     }

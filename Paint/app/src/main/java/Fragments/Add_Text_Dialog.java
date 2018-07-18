@@ -48,11 +48,12 @@ public class Add_Text_Dialog extends Dialog implements View.OnClickListener{
             public void onClick(View view) {
                 TextSticker sticker = new TextSticker(context);
                 sticker.setDrawable(ContextCompat.getDrawable(context, R.drawable.sticker_transparent_background));
-                sticker.setTextColor(Color.BLACK);
+                sticker.setTextColor(R.drawable.rainbow);
                 sticker.setMaxTextSize(65);
                 sticker.setText(editText.getText().toString());
                 sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
                 sticker.resizeText();
+
 
                 stickerView.addSticker(sticker);
                 dismiss();

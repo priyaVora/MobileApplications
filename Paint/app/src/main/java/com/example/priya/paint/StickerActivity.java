@@ -34,14 +34,14 @@ public class StickerActivity extends AppCompatActivity {
         stickerView = findViewById(R.id.stickerView);
 
         //add text sticker
-        TextSticker sticker = new TextSticker(this);
-        sticker.setDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sticker_transparent_background));
-        sticker.setTextColor(Color.BLACK);
-        sticker.setText("Captain America");
-        sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
-        sticker.resizeText();
-
-        stickerView.addSticker(sticker);
+//        TextSticker sticker = new TextSticker(this);
+//        sticker.setDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sticker_transparent_background));
+//        sticker.setTextColor(Color.BLACK);
+//        sticker.setText("Captain America");
+//        sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+//        sticker.resizeText();
+//
+//        stickerView.addSticker(sticker);
 
 
         recyclerView = findViewById(R.id.recyclerViewId_sticker);
