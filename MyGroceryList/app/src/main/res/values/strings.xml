@@ -6,4 +6,11 @@
     <string name="hint_item">Enter Grocery</string>
     <string name="quantity_hint">Quantity</string>
     <string name="save_title">Save</string>
+    <string name="title_activity_grocery_list">GroceryListActivity</string>
+    <string name="groceryName">Grocery Name</string>
+    <string name="qty">Qty</string>
+    <string name="date">Date:</string>
+    <string name="sure_text">Are you sure?</string>
+    <string name="no">NO</string>
+    <string name="yes">YES</string>
 </resources>

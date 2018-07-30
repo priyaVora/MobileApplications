@@ -1,14 +1,17 @@
 package com.example.priya.mygrocerylist.Data;
 
+import android.app.usage.ConfigurationStats;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.SyncStateContract;
 
 import com.example.priya.mygrocerylist.Model.Grocery;
 import com.example.priya.mygrocerylist.Util.Constants;
 
+import java.security.Key;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_GROCERY_TABLE = "CREATE TABLE " + Constants.TABLE_NAME + "(" + Constants.KEY_ID
-                + " INTEGER PRIMARY KEY," +
+                + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 Constants.KEY_GROCERY_ITEM + " TEXT," +
                 Constants.KEY_QTY_NUMBER + " TEXT," +
                 Constants.KEY_DATE_NAME + " LONG);";
@@ -51,21 +54,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Add GROCERY
 
 //ADD CONTACT
-    public void AddGrocery(Grocery groceryItem) {
+    public void addGrocery(Grocery groceryItem) {
         SQLiteDatabase db = this.getWritableDatabase();
+        groceryItem.setDateItemAdded(""+System.currentTimeMillis());
         ContentValues value = new ContentValues();
         value.put(Constants.KEY_ID, groceryItem.getId());
         value.put(Constants.KEY_GROCERY_ITEM, groceryItem.getName());
         value.put(Constants.KEY_QTY_NUMBER, groceryItem.getQuantity());
-        value.put(Constants.KEY_DATE_NAME, groceryItem.getDateItemAdded());
+        value.put(Constants.KEY_DATE_NAME, System.currentTimeMillis());
+
+
 
         //Insert to row
         db.insert(Constants.TABLE_NAME, null, value);
-        db.close(); // close db connection
+
+
+        //db.close(); // close db connection
     }
 
-    //Get a Grocery
-    private Grocery getGrocery(int id) {
+    //Get a Groceryj
+    public Grocery getGrocery(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(Constants.TABLE_NAME, new String[] {Constants.KEY_ID,
         Constants.KEY_GROCERY_ITEM, Constants.KEY_QTY_NUMBER, Constants.KEY_DATE_NAME},
@@ -93,10 +101,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         List<Grocery> groceryList = new ArrayList<>();
-        Cursor cursor = db.query(Constants.TABLE_NAME, new String[]{
-                Constants.KEY_ID, Constants.KEY_GROCERY_ITEM, Constants.KEY_QTY_NUMBER,
-                Constants.KEY_DATE_NAME}, null, null, null, null, Constants.KEY_DATE_NAME
-                + "DECS");
+//        Cursor cursor = db.query(Constants.TABLE_NAME, new String[]{
+//                Constants.KEY_ID, Constants.KEY_GROCERY_ITEM, Constants.KEY_QTY_NUMBER,
+//                Constants.KEY_DATE_NAME}, null, null, null, null, Constants.KEY_DATE_NAME + "DESC");
+
+        Cursor cursor = db.query(Constants.TABLE_NAME, new String[] {
+               Constants.KEY_ID, Constants.KEY_GROCERY_ITEM, Constants.KEY_QTY_NUMBER,Constants.KEY_DATE_NAME},null,null,null,null,Constants.KEY_DATE_NAME + " DESC");
 
         if (cursor.moveToFirst()) {
             do {
@@ -107,7 +117,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //convert timestamp to something readable
                 DateFormat dateFormat = DateFormat.getDateInstance();
-                String formatDate = dateFormat.format(new Date(cursor.getColumnIndex(Constants.KEY_DATE_NAME)).getTime());
+                String formatDate = dateFormat.format(new Date(cursor.getLong(cursor.getColumnIndex(Constants.KEY_DATE_NAME))).getTime());
+
                 grocery.setDateItemAdded(formatDate);
 
 
@@ -121,17 +132,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //UPDATE GROCERY
     public int updateGrocery(Grocery grocery) {
-        return 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Constants.KEY_GROCERY_ITEM, grocery.getName());
+        contentValues.put(Constants.KEY_QTY_NUMBER, grocery.getQuantity());
+        contentValues.put(Constants.KEY_DATE_NAME, System.currentTimeMillis()); // get system time
+
+        //Update Row
+        return db.update(Constants.TABLE_NAME, contentValues, Constants.KEY_ID + "=?", new String[]{String.valueOf(grocery.getId())});
     }
 
     //DELETE GROCERY
-    public void deleteGrocery() {
-
+    public void deleteGrocery(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_NAME, Constants.KEY_ID + " =?",
+                new String[]{String.valueOf(id)});
+        db.close();
     }
 
     //GET COUNT
     public int getGroceriesCount() {
-        return 0;
+        String countQuery = "SELECT * FROM " + Constants.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        return cursor.getCount();
     }
 
+    
 }
