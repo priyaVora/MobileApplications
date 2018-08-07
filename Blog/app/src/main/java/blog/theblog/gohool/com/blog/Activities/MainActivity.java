@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 mUser = firebaseAuth.getCurrentUser();
                 if(mUser != null) {
                     Toast.makeText(MainActivity.this, "Signed In", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(MainActivity.this, PostListActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(MainActivity.this, "Not Signed In", Toast.LENGTH_LONG).show();
                 }
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                                 if(task.isSuccessful()) {
                                     Toast.makeText(MainActivity.this, "Signed In", Toast.LENGTH_LONG).show();
                                startActivity(new Intent(MainActivity.this,PostListActivity.class ));
+                                    startActivity(new Intent(MainActivity.this, PostListActivity.class));
+                               finish();
                                 } else {
 
                                 }

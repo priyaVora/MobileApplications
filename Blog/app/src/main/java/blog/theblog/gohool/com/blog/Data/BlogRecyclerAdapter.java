@@ -49,6 +49,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         holder.timestamp.setText(formattedDate);
         imageUrl = blog.getImage();
+
+        //TODO: Use Picasso library to load image
     }
 
     @Override

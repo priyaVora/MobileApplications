@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="blog.theblog.gohool.com.blog.Activities.AddPostActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/postImageId"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
