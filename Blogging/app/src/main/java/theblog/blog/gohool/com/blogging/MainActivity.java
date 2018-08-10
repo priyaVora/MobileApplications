@@ -1,6 +1,7 @@
 package theblog.blog.gohool.com.blogging;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button createButton;
     private Button loginButton;
+
+
 
     private FirebaseUser mUser;
     @Override
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditView);
         createButton = findViewById(R.id.createButtonId);
         loginButton = findViewById(R.id.loginButtonId);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -52,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
+
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
+                finish();
+            }
+        });
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

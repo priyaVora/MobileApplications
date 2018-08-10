@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class PostListActivity extends AppCompatActivity {
             blogList = new ArrayList<>();
         }
         Log.d("runMessage3", blogList.toString());
+        Collections.reverse(blogList);
         adapter = new BlogRecyclerAdapter(this, blogList);
         recyclerView.setAdapter(adapter);
     }
