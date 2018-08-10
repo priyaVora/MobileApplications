@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Blog</string>
+    <string name="createAccount">Create Account</string>
+    <string name="login">Login</string>
+    <string name="EnterEmail">Email</string>
+    <string name="password">Password</string>
+    <string name="post_title">Post Title</string>
+    <string name="time_stamp">Date Created:</string>
+    <string name="post_description">Post Description</string>
+    <string name="post">Post</string>
+</resources>
