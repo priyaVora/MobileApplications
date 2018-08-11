@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -37,6 +40,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private ImageButton profilePic;
     private final static int GALLERYCODE = 1;
+    private Uri resultUri = null;
+
+    private StorageReference mFirebaseStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance();
         mDattabaseReference = mDatabase.getReference().child("MUser");
+
+        mFirebaseStorage = FirebaseStorage.getInstance().getReference().child("MBlog_Profile_Pics");
+
 
         mAuth = FirebaseAuth.getInstance();
         mProgressDialog = new ProgressDialog(this);
@@ -84,26 +93,45 @@ public class CreateAccountActivity extends AppCompatActivity {
 
          if(!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lName) &&
                  !TextUtils.isEmpty(em) && !TextUtils.isEmpty(pwd)) {
-             mProgressDialog.setMessage("Creeating Account...");
+             mProgressDialog.setMessage("Creating Account...");
              mProgressDialog.show();
-
+             Log.d("profileImageMessage", "progress show");
              mAuth.createUserWithEmailAndPassword(em, pwd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                  @Override
                  public void onSuccess(AuthResult authResult) {
                      if(authResult != null) {
-                        String userid = mAuth.getCurrentUser().getUid();
-                        DatabaseReference currentUserDb = mDattabaseReference.child(userid);
-                        currentUserDb.child("firstname").setValue(fname);
-                        currentUserDb.child("lastname").setValue(lName);
-                        currentUserDb.child("image").setValue("none");
 
-                        mProgressDialog.dismiss();
+                         Log.d("profileImageMessage", "Auth Result is not null");
+                         StorageReference imagePath = mFirebaseStorage.child("MBlog_Profile_Pics")
+                                 .child(resultUri.getLastPathSegment());
+                         Log.d("profileImageMessage", "Image Path storage");
+                         imagePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                             @Override
+                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                 String userid = mAuth.getCurrentUser().getUid();
+
+                                 DatabaseReference currentUserDb = mDattabaseReference.child(userid);
+                                 currentUserDb.child("image").setValue(resultUri.toString());
+                                 Log.d("profileImageMessage", "Image is set.");
+                                 currentUserDb.child("firstname").setValue(fname);
+                                 Log.d("profileImageMessage", "First name is set.");
+                                 currentUserDb.child("lastname").setValue(lName);
+                                 Log.d("profileImageMessage", "Last name is set.");
+                                 mProgressDialog.dismiss();
+
+
 
                         //Send users to postlist
                          Intent intent = new Intent(CreateAccountActivity.this, PostListActivity.class);
                          intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //we usually use finish()
 
                          startActivity(intent);
+                             }
+                         });
+                     } else {
+                         Toast.makeText(CreateAccountActivity.this, "The mAUth is null", Toast.LENGTH_LONG).show();
+                         Log.d("profileImageMessage", "mAuth is null.");
                      }
                  }
              });
@@ -118,8 +146,21 @@ public class CreateAccountActivity extends AppCompatActivity {
         if(requestCode == GALLERYCODE && resultCode == RESULT_OK) {
             Uri mImageUri = data.getData();
             CropImage.activity(mImageUri)
+                    .setAspectRatio(1,1)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this);
         }
+
+
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK) {
+                resultUri = result.getUri();
+                profilePic.setImageURI(resultUri);
+            } else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+
     }
 }
